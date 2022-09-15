@@ -1,0 +1,1 @@
+"Fire Hydrant, The water object. Sprays water at fires."

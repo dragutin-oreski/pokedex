@@ -1,0 +1,1 @@
+"Traffic Light, The traffic Control object. Turns red when in a hurry."
