@@ -3,9 +3,9 @@ import subprocess
 import sys
 import os
 
-button1 = Button(17)
-button2 = Button(16)
-button3 = Button(22)
+button1 = Button(22)
+button2 = Button(23)
+button3 = Button(24)
 
 
 ## Reopens the button press script killing this process
