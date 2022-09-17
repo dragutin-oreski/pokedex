@@ -20,22 +20,22 @@ def initialize_net():
 
 
 def get_objects(img, thres, nms, net, draw=True, objects=[]):
-    classIds, confs, bbox = net.detect(img, confThreshold=thres, nmsThreshold=nms)
+    class_ids, confs, bbox = net.detect(img, confThreshold=thres, nmsThreshold=nms)
     class_names = get_class_names()
 
     if len(objects) == 0:
         objects = class_names
-    objectInfo = []
-    if len(classIds) != 0:
-        for classId, confidence, box in zip(classIds.flatten(), confs.flatten(), bbox):
-            className = class_names[classId - 1]
-            if className in objects:
-                objectInfo.append([box, className])
-                if (draw):
+    object_info = []
+    if len(class_ids) != 0:
+        for class_id, confidence, box in zip(class_ids.flatten(), confs.flatten(), bbox):
+            class_name = class_names[class_id - 1]
+            if class_name in objects:
+                object_info.append([box, class_name])
+                if draw:
                     cv2.rectangle(img, box, color=(0, 255, 0), thickness=2)
-                    cv2.putText(img, class_names[classId - 1].upper(), (box[0] + 10, box[1] + 30),
+                    cv2.putText(img, class_names[class_id - 1].upper(), (box[0] + 10, box[1] + 30),
                                 cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
                     cv2.putText(img, str(round(confidence * 100, 2)), (box[0] + 200, box[1] + 30),
                                 cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
 
-    return img, objectInfo
+    return img, object_info
