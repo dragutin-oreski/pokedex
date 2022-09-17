@@ -7,7 +7,7 @@ button = Button(17)
 
 def open_dex_and_die(program, exit_code=0):
     
-    # Start the dex
+    # Start the descriptions
     subprocess.Popen(program)
     # close this script
     sys.exit(exit_code)

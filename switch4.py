@@ -40,13 +40,13 @@ def showDex():
     disp.clear()
 
         
-    dexImage = os.path.abspath("res/classified/dexGraphics/dexEntryGraphics/")
+    dexImage = os.path.abspath("res/classified/dex_entries/dexEntryGraphics/")
         
         
                 
                         
-        ## This block pulls and display the dex entry
-    image = Image.open("/home/pi/dexGraphics/dexEntryGraphics/"+fileNames[index]+'.jpg')
+        ## This block pulls and display the descriptions entry
+    image = Image.open("/home/pi/dex_entries/dexEntryGraphics/"+fileNames[index]+'.jpg')
     image = image.rotate(0)
     disp.ShowImage(image)
     time.sleep(1)

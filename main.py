@@ -2,7 +2,7 @@ import cv2
 import os
 from pokedex.buttons import button1, open_switch_and_die, button2, button3
 from pokedex.classifier import get_objects, initialize_net, get_video_capture
-from pokedex.display import splash_screen, dex_image
+from pokedex.display import show_background, dex_image
 from pokedex.resources import record_found, delete_seen
 from pokedex.sound import text_to_speech
 
@@ -10,13 +10,13 @@ from pokedex.sound import text_to_speech
 def main():
     cap = get_video_capture()
     net = initialize_net()
-    splash_ran = False
+    background_on = False
 
     while True:
 
-        if not splash_ran:
-            splash_screen()
-            splash_ran = True
+        if not background_on:
+            show_background()
+            background_on = True
         if button1.is_pressed:
             open_switch_and_die(['python', 'switch5.py'])
         if button2.is_pressed:

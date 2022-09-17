@@ -26,7 +26,7 @@ disp.Init()
 disp.clear()
 
     
-image = Image.open('/home/pi/Desktop/pokedex/dexGraphics/splashscreen2.jpg')	
+image = Image.open('/home/pi/Desktop/pokedex/dex_entries/background_image.jpg')
 image = image.rotate(0)
 disp.ShowImage(image)
 time.sleep(3)
