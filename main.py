@@ -1,9 +1,9 @@
 import cv2
 import os
-from pokedex.buttons import button1, open_switch_and_die, button2, button3, delete_seen
+from pokedex.buttons import button1, open_switch_and_die, button2, button3
 from pokedex.classifier import get_objects, initialize_net, get_video_capture
 from pokedex.display import splash_screen, dex_image
-from pokedex.resources import record_found
+from pokedex.resources import record_found, delete_seen
 from pokedex.sound import text_to_speech
 
 

@@ -1,7 +1,6 @@
 from gpiozero import Button
 import subprocess
 import sys
-import os
 
 button1 = Button(22)
 button2 = Button(23)
@@ -16,8 +15,3 @@ def open_switch_and_die(program, exit_code=0):
     sys.exit(exit_code)
 
 
-def delete_seen():
-    # Start the dex
-    dir = '/home/pi/seen'
-    for file in os.scandir(dir):
-        os.remove(file.path)

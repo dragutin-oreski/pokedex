@@ -27,6 +27,11 @@ def record_found(found_class):
     f.close()
 
 
+def delete_seen():
+    for file in os.scandir(_get_seen_dir()):
+        os.remove(file.path)
+
+
 def _get_class_file():
     return f"{_get_classifier_dir()}/coco.names"
 
