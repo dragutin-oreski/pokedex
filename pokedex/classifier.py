@@ -1,6 +1,6 @@
 import cv2
 
-from pokedex.resources import get_model, get_config, get_class_names
+from pokedex.resources import get_model_path, get_classifier_net, get_class_names
 
 
 def get_video_capture():
@@ -11,7 +11,7 @@ def get_video_capture():
 
 
 def initialize_net():
-    net = cv2.dnn_DetectionModel(model=get_model(), config=get_config())
+    net = cv2.dnn_DetectionModel(model=get_model_path(), config=get_classifier_net())
     net.setInputSize(320, 320)
     net.setInputScale(1.0 / 127.5)
     net.setInputMean((127.5, 127.5, 127.5))
@@ -19,7 +19,6 @@ def initialize_net():
     return net
 
 
-# this is the meat of the detection, tells it how to draw the box, and to label inside the box
 def get_objects(img, thres, nms, net, draw=True, objects=[]):
     classIds, confs, bbox = net.detect(img, confThreshold=thres, nmsThreshold=nms)
     class_names = get_class_names()
