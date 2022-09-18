@@ -4,7 +4,7 @@ from pokedex.resources import get_model_path, get_classifier_net, get_class_name
 
 
 def get_video_capture():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture('libcamerasrc ! video/x-raw, width=640, height=480, framerate=30/1 ! videoconvert ! videoscale ! appsink', cv2.CAP_GSTREAMER)
     cap.set(3, 640)
     cap.set(4, 480)
     return cap
