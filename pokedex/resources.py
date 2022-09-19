@@ -51,7 +51,7 @@ def get_description_from_dex(found_class):
 
 
 def _get_description_from_dex_file(found_class):
-    return f"{_get_dex_entries_dir()}/description/{found_class}.txt"
+    return f"{_get_dex_entries_dir()}/descriptions/{found_class}.txt"
 
 
 def _get_class_file():
