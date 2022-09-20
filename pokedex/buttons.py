@@ -7,11 +7,6 @@ button2 = Button(23)
 button3 = Button(24)
 
 
-## Reopens the button press script killing this process
-def open_switch_and_die(program, exit_code=0):
-    # Start the dex
-    subprocess.Popen(program)
-    # close this script
-    sys.exit(exit_code)
-
-
+def run_program(program, exit_code=0):
+    subprocess.Popen(program)  # Start the dex
+    sys.exit(exit_code)  # close this script

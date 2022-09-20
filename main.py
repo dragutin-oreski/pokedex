@@ -1,9 +1,9 @@
 import cv2
 import os
-from pokedex.buttons import button1, open_switch_and_die, button2, button3
+from pokedex.buttons import button1, run_program, button2, button3
 from pokedex.classifier import get_objects, initialize_net, get_video_capture
-from pokedex.display import show_background, dex_image
-from pokedex.resources import record_found, delete_seen
+from pokedex.display import show_background, show_dex_image_if_not_already_shown
+from pokedex.resources import save_to_seen, delete_seen, is_class_seen
 from pokedex.sound import text_to_speech
 
 
@@ -17,10 +17,10 @@ def main():
         if not background_on:
             show_background()
             background_on = True
-        if button1.is_pressed:
-            open_switch_and_die(['python', 'switch5.py'])
+        # if button1.is_pressed:
+        #     open_switch_and_die(['python', 'switch5.py'])
         if button2.is_pressed:
-            open_switch_and_die(['python', 'switch4.py'])
+            run_program(['python', 'pokedex/browse_seen.py'])
         if button3.is_pressed:
             delete_seen()
         success, img = cap.read()
@@ -30,13 +30,12 @@ def main():
 
         for obj in object_info:
             found_class = obj[1]  # loop through objects identified in picture and speak
-            seen_file = os.path.abspath("seen/" + found_class + '.txt')
-            if os.path.isfile(seen_file):
+            if is_class_seen(found_class):
                 continue
-            dex_image(found_class)
-            text_to_speech(found_class)
-            record_found(found_class)
-            splash_ran = False
+            show_dex_image_if_not_already_shown(found_class)
+            # text_to_speech(found_class)
+            save_to_seen(found_class)
+            background_on = False
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ def get_class_names():
     return class_names
 
 
-def record_found(found_class):
+def save_to_seen(found_class):
     """
     If it doesn't exist already, add found_class to seen folder
     """
@@ -25,6 +25,10 @@ def record_found(found_class):
         return
     f = open(seen_file, "w")
     f.close()
+
+
+def is_class_seen(found_class):
+    return bool(os.path.isfile(get_seen_file(found_class)))
 
 
 def get_seen_file(found_class):
@@ -37,6 +41,10 @@ def get_image_from_dex(found_class):
 
 def get_background_image():
     return f"{_get_res_dir()}/background_image.jpg"
+
+
+def get_seen_names():
+    return [os.path.splitext(filename)[0] for filename in os.listdir(_get_seen_dir())]
 
 
 def delete_seen():
