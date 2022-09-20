@@ -1,6 +1,6 @@
 from pokedex.buttons import button1, button2, button3, run_program
 from pokedex.display import show_dex_image
-from pokedex.resources import get_seen_names
+from pokedex.resources import get_seen_names, get_path_main_file
 
 seen_names = get_seen_names()
 index = 0
@@ -18,6 +18,6 @@ while 0 < len(seen_names):
         print(index)
 
     if button3.is_pressed:
-        run_program(['python', 'main.py'])
+        run_program(['python', get_path_main_file()])
 
-run_program(['python', 'main.py'])
+run_program(['python', get_path_main_file()])

@@ -16,6 +16,18 @@ def get_class_names():
     return class_names
 
 
+def get_path_main_file():
+    return f"{_get_root_path()}/main.py"
+
+
+def get_path_browse_seen():
+    return f"{_get_root_path()}/pokedex/browse_seen.py"
+
+
+def get_path_switch5():
+    return f"{_get_root_path()}/switch5.py"
+
+
 def save_to_seen(found_class):
     """
     If it doesn't exist already, add found_class to seen folder

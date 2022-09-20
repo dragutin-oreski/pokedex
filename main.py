@@ -3,7 +3,7 @@ import os
 from pokedex.buttons import button1, run_program, button2, button3
 from pokedex.classifier import get_objects, initialize_net, get_video_capture
 from pokedex.display import show_background, show_dex_image_if_not_already_shown
-from pokedex.resources import save_to_seen, delete_seen, is_class_seen
+from pokedex.resources import save_to_seen, delete_seen, is_class_seen, get_path_browse_seen, get_path_switch5
 from pokedex.sound import text_to_speech
 
 
@@ -18,9 +18,9 @@ def main():
             show_background()
             background_on = True
         # if button1.is_pressed:
-        #     open_switch_and_die(['python', 'switch5.py'])
+        #     open_switch_and_die(['python', get_path_switch5()])
         if button2.is_pressed:
-            run_program(['python', 'pokedex/browse_seen.py'])
+            run_program(['python', get_path_browse_seen()])
         if button3.is_pressed:
             delete_seen()
         success, img = cap.read()
