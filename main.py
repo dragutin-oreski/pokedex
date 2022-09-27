@@ -39,7 +39,7 @@ def run_main_program():
 
 def wait_for_start():
     print('waiting for start')
-    sleep(1)
+    show_background()
     while True:
     
         if button1.is_pressed:
@@ -47,6 +47,7 @@ def wait_for_start():
 
         if button2.is_pressed or button3.is_pressed:
             browse_seen()
+
 #         if button3.is_pressed:
 #             delete_seen()
 
