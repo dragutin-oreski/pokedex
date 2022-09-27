@@ -20,7 +20,7 @@ def show_background():
     image = Image.open(get_background_image())
     image = image.rotate(0)
     disp.ShowImage(image)
-    time.sleep(3)
+    time.sleep(0.1)
     disp.module_exit()
 
 
@@ -36,7 +36,7 @@ def show_dex_image(found_class):
     
     disp = _get_display()
     disp.ShowImage(image)
-    time.sleep(3)
+    time.sleep(0.1)
     disp.module_exit()
 
 
