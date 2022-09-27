@@ -20,9 +20,9 @@ def browse_seen():
     size = len(seen_names)
     index = 0
 
-    while 0 < len(seen_names):
+    show_dex_image(seen_names[index])
 
-        show_dex_image(seen_names[index])
+    while 0 < len(seen_names):
 
         if button2.is_pressed:
             index = (index + 1) % size
