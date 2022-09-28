@@ -8,6 +8,7 @@ from pokedex.resources import get_seen_names
 button1 = Button(22)
 button2 = Button(23)
 button3 = Button(24)
+button4 = Button(16)
 
 
 def run_program(program, exit_code=0):
