@@ -4,6 +4,7 @@ import sys
 
 from pokedex.display import show_dex_image
 from pokedex.resources import get_seen_names
+from pokedex.sound import text_to_speech
 
 button1 = Button(22)
 button2 = Button(23)
@@ -22,17 +23,20 @@ def browse_seen():
     index = 0
 
     show_dex_image(seen_names[index])
+    text_to_speech(seen_names[index])
 
     while 0 < len(seen_names):
 
         if button2.is_pressed:
             index = (index + 1) % size
             show_dex_image(seen_names[index])
+            text_to_speech(seen_names[index])
             print(index)
 
         if button3.is_pressed:
             index = (index - 1) % size
             show_dex_image(seen_names[index])
+            text_to_speech(seen_names[index])
             print(index)
 
         if button1.is_pressed:
