@@ -18,7 +18,7 @@ def run_main_program():
             wait_for_start()
 
         success, img = cap.read()
-        result, object_info = get_objects(img=img, thres=0.80, nms=0.9, net=net)
+        result, object_info = get_objects(img=img, thres=0.75, nms=0.9, net=net)
         cv2.imshow("Output", result)
         cv2.waitKey(1)
 
