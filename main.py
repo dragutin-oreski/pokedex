@@ -1,15 +1,14 @@
 import cv2
-import os
-from pokedex.buttons import button1, run_program, button2, button3, button4, browse_seen
+from pokedex.buttons import button1, button2, button3, button4, browse_seen
 from pokedex.classifier import get_objects, initialize_net, get_video_capture
-from pokedex.display import show_background, show_dex_image_if_not_already_shown
-from pokedex.resources import save_to_seen, delete_seen, is_class_seen, get_path_browse_seen, get_path_switch5
+from pokedex.display import show_background, show_dex_image
+from pokedex.resources import save_to_seen, delete_seen, is_class_seen
 from pokedex.sound import text_to_speech
-from time import sleep
 import time
 
 
 cap = get_video_capture()
+
 
 def run_main_program():
     net = initialize_net()
@@ -27,17 +26,16 @@ def run_main_program():
             found_class = obj[1]  # loop through objects identified in picture and speak
             if is_class_seen(found_class):
                 continue
-            show_dex_image_if_not_already_shown(found_class)
+            show_dex_image(found_class)
             text_to_speech(found_class)
             save_to_seen(found_class)
             if found_class == "dog":
                 found_class = "bobi"
-                show_dex_image_if_not_already_shown(found_class)
+                show_dex_image(found_class)
                 text_to_speech(found_class)
 
             wait_for_start()
 
-      
 
 def wait_for_start():
     show_background()
