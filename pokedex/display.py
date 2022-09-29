@@ -1,7 +1,6 @@
-import os
 import time
 
-from pokedex.resources import get_image_from_dex, get_background_image, get_seen_file, is_class_seen
+from pokedex.resources import get_image_from_dex, get_background_image
 from pokedex.services.lcd.lib.LCD_2inch4 import LCD_2inch4
 import spidev as SPI
 from PIL import Image
@@ -22,12 +21,6 @@ def show_background():
     disp.ShowImage(image)
     time.sleep(0.1)
     disp.module_exit()
-
-
-def show_dex_image_if_not_already_shown(found_class):
-    if is_class_seen(found_class):
-        return
-    show_dex_image(found_class)
 
 
 def show_dex_image(found_class):
