@@ -1,7 +1,4 @@
 from gpiozero import Button
-import subprocess
-import time
-import sys
 
 from pokedex.display import show_dex_image
 from pokedex.resources import get_seen_names
@@ -11,11 +8,6 @@ button1 = Button(22)
 button2 = Button(23)
 button3 = Button(24)
 button4 = Button(16)
-
-
-def run_program(program, exit_code=0):
-    subprocess.Popen(program)  # Start the dex
-    sys.exit(exit_code)  # close this script
 
 
 def browse_seen():
