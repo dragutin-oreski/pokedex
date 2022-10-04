@@ -3,6 +3,5 @@
 # navigate to home directory, then to this directory, then execute python script, then back home
 
 cd /
-cd home/pi/Desktop/pokedex/
-sudo python objectident.py
-
+cd home/dragec/git/pokedex/
+sudo python main.py
