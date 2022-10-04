@@ -13,6 +13,17 @@ bus = 0
 device = 0
 
 
+def show_image(path):
+    disp = _get_display()
+    
+    image = Image.open(path)
+    image = image.rotate(180)
+    
+    disp.ShowImage(image)
+    time.sleep(0.1)
+    disp.module_exit()
+
+
 def show_background():
     disp = _get_display()
 
