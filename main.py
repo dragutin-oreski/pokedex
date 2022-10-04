@@ -47,12 +47,14 @@ def wait_for_start():
         if button1.is_pressed:
             run_main_program()
 
-        if button2.is_pressed or button3.is_pressed:
+#         if button2.is_pressed or button3.is_pressed:
+        if button2.is_pressed:
             browse_seen()
             show_background()
             time.sleep(0.5)
 
-        if button4.is_pressed:
+#         if button4.is_pressed:
+        if button3.is_pressed:
             delete_seen()
 
 
