@@ -1,7 +1,7 @@
 import cv2
 from pokedex.buttons import button1, button2, button3, button4, browse_seen
 from pokedex.classifier import get_objects, initialize_net, get_video_capture
-from pokedex.display import show_background, show_dex_image
+from pokedex.display import show_background, show_dex_image, show_image
 from pokedex.resources import save_to_seen, delete_seen, is_class_seen
 from pokedex.sound import text_to_speech
 import time
@@ -12,6 +12,7 @@ cap = get_video_capture()
 
 def run_main_program():
     net = initialize_net()
+    show_dex_image("pokeball")
 
     while True:
         if button1.is_pressed:
