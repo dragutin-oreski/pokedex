@@ -25,8 +25,9 @@ def browse_seen():
             show_dex_image(seen_names[index])
 
         if button3.is_pressed:
-            index = (index - 1) % size
-            show_dex_image(seen_names[index])
+            text_to_speech(seen_names[index])
+#             index = (index - 1) % size
+#             show_dex_image(seen_names[index])
 
         if button4.is_pressed:
             text_to_speech(seen_names[index])
