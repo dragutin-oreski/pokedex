@@ -22,8 +22,8 @@ def run_main_program():
         result, object_info = get_objects(img=img, thres=0.60, nms=0.9, net=net)
 #         cv2.imshow("Output", result)
 #         cv2.waitKey(1)
-        cv2.imwrite("test.jpg", result)
-        show_image("test.jpg")
+        cv2.imwrite("classification_image.jpg", result)
+        show_image("classification_image.jpg")
 
         for obj in object_info:
             found_class = obj[1]  # loop through objects identified in picture and speak
