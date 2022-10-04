@@ -18,6 +18,7 @@ def show_image(path):
     
     image = Image.open(path)
     image = image.rotate(180)
+    image = image.resize((320, 240))
     
     disp.ShowImage(image)
     time.sleep(0.1)
