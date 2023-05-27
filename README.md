@@ -1,3 +1,5 @@
+![alt text](https://github.com/dragutin-oreski/personal-website/blob/main/content/featured/Pokedex/dex.jpg?raw=true)
+
 # Pokedex
 
 The goal of the project is to create a device which can recognise objects and give you information about them.
