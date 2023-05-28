@@ -2,10 +2,14 @@
 
 # Pokedex
 
-The goal of the project is to create a device which can recognise objects and give you information about them.
+The goal of the project was to create a device which can recognise objects and give information about them. 
+It is powered by an external battery, and it can be carried around. It only detects objects when 
+instructed to do it (when a button is pressed). 
+It keeps a browseable history of all detected objects
+<!--- The goal of the project is to create a device which can recognise objects and give you information about them.
 It is powered by an external battery and you can carry it around.
 It only detects objects when you instruct it to do it (when you press a button).
-It keeps a history of all detected objects through which you can browse.
+It keeps a history of all detected objects through which you can browse. --->
 
 ## Hardware
 - [Raspberry Pi4 Model B 4GB](https://www.hgspot.hr/elektronicki-set-raspberry-pi-4-model-b-8gb-original-starter-kit-8gb-komplet)
