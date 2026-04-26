@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokedex · Dragutin Oreški</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Shared design tokens ──────────────────────── */
+    :root {
+      --serif: "Source Serif 4", "Iowan Old Style", "Charter", Georgia, serif;
+      --sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --mono:  "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+      --ink:        #1a1814;
+      --ink-2:      #3a352c;
+      --muted:      #6f6754;
+      --muted-soft: #a59c84;
+
+      --paper:      #faf8f3;
+      --card:       #fbf7ec;
+
+      --rule:       #e6dfcf;
+      --rule-soft:  #f0eadc;
+
+      --accent:      oklch(0.55 0.10 65);
+      --accent-soft: oklch(0.92 0.04 70);
+      --accent-wash: #efe3c7;
+
+      --col-wide:   980px;
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .wrap {
+      max-width: var(--col-wide);
+      margin: 0 auto;
+      padding: 32px clamp(20px, 4vw, 48px) 88px;
+    }
+
+    /* ── Topbar (shared shell) ─────────────────────── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 56px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none; color: inherit;
+    }
+    .brand-mark {
+      display: inline-grid; place-items: center;
+      width: 38px; height: 38px;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--card);
+      font-family: var(--serif);
+      font-size: 19px;
+      font-style: italic;
+    }
+    .brand-name {
+      display: block; font-family: var(--serif);
+      font-size: 19px; line-height: 1.1;
+    }
+    .brand-meta {
+      display: block; font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted); font-size: 10.5px; margin-top: 2px;
+    }
+    .topbar-nav {
+      font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      font-size: 11px;
+    }
+    .topbar-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+    }
+    .topbar-nav a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+    /* ── Hero ──────────────────────────────────────── */
+    .kicker {
+      font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); font-size: 11px;
+      margin-bottom: 18px;
+    }
+    .kicker .dot {
+      display: inline-block; width: 6px; height: 6px;
+      margin-right: 8px; border-radius: 50%;
+      background: currentColor; transform: translateY(-1px);
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(46px, 7vw, 76px);
+      font-weight: 400; line-height: 1;
+      letter-spacing: -0.02em;
+      margin: 0 0 24px; max-width: 14ch;
+    }
+    h1 em { color: var(--accent); font-style: italic; }
+    .hero-sub {
+      max-width: 42ch; margin: 0 0 36px;
+      color: var(--ink-2);
+      font-family: var(--serif);
+      font-size: clamp(19px, 2vw, 23px);
+      font-style: italic; line-height: 1.45;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap;
+      gap: 28px 40px;
+      padding: 24px 0; margin: 0 0 48px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-meta dt { display: block; margin-bottom: 6px; opacity: 0.75; }
+    .hero-meta dd {
+      margin: 0; color: var(--ink);
+      font-family: var(--sans); font-size: 14px;
+      font-weight: 500; letter-spacing: 0; text-transform: none;
+    }
+
+    /* ── Imagery placeholder ───────────────────────── */
+    .device-figure {
+      margin: 0 0 64px;
+      background:
+        repeating-linear-gradient(135deg,
+          color-mix(in oklch, var(--accent) 12%, var(--card)) 0 8px,
+          var(--card) 8px 16px);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      aspect-ratio: 16 / 9;
+      display: grid; place-items: center;
+      color: var(--ink-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .device-figure::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 30%, var(--paper) 110%);
+      pointer-events: none;
+    }
+    .device-figure-content {
+      position: relative; z-index: 1;
+      text-align: center;
+    }
+    .device-figure-content .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      border-radius: 100px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .device-figure-content .label {
+      font-family: var(--serif);
+      font-size: 22px; font-style: italic;
+      color: var(--ink);
+    }
+
+    /* ── Body prose ────────────────────────────────── */
+    .prose p {
+      max-width: 62ch;
+      color: var(--ink-2);
+      font-size: 17px; line-height: 1.65;
+      margin: 0 0 1em;
+    }
+    .prose em { color: var(--ink); font-style: italic; }
+    .prose strong { color: var(--ink); font-weight: 600; }
+    .prose a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+    .prose a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+    /* ── Section heads ─────────────────────────────── */
+    .section { margin-top: 64px; }
+    .section-head {
+      display: flex; align-items: baseline;
+      justify-content: space-between; gap: 24px;
+      margin-bottom: 28px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-head h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(26px, 2.6vw, 32px);
+      font-weight: 400; letter-spacing: -0.015em;
+    }
+    .section-label {
+      font-family: var(--mono); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    /* ── Hardware bill of materials ────────────────── */
+    .bom {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .bom-row {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      background: var(--card);
+      align-items: start;
+    }
+    .bom-num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 22px;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .bom-name {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .bom-name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+    .bom-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .bom-meta {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── Steps / how it works ──────────────────────── */
+    .steps {
+      list-style: none;
+      margin: 0; padding: 0 0 0 60px;
+      position: relative;
+      counter-reset: step;
+    }
+    .steps::before {
+      content: "";
+      position: absolute;
+      left: 24px; top: 12px; bottom: 12px;
+      width: 1px; background: var(--rule);
+    }
+    .steps li {
+      position: relative;
+      padding-bottom: 28px;
+      counter-increment: step;
+    }
+    .steps li:last-child { padding-bottom: 0; }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: -60px; top: 0;
+      width: 48px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-align: right;
+    }
+    .steps h4 {
+      margin: 0 0 6px;
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .steps p {
+      margin: 0;
+      max-width: 56ch;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    /* ── Acknowledgment / links footer ─────────────── */
+    .links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .link-card {
+      display: block;
+      padding: 18px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      background: var(--card);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.18s, transform 0.18s;
+    }
+    .link-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .link-card .label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .link-card .name {
+      margin-top: 6px;
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--ink);
+    }
+    .link-card .arrow {
+      float: right;
+      font-family: var(--mono);
+      color: var(--muted);
+      transition: color 0.18s, transform 0.18s;
+    }
+    .link-card:hover .arrow { color: var(--accent); transform: translateX(2px); }
+
+    /* ── Colophon ──────────────────────────────────── */
+    .colophon {
+      margin-top: 80px; padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      font-family: var(--mono); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .colophon a { color: var(--muted); text-decoration: none; }
+    .colophon a:hover { color: var(--ink); }
+
+    @media (max-width: 720px) {
+      .topbar { margin-bottom: 36px; }
+      h1 { font-size: 44px; }
+      .hero-meta { gap: 18px 28px; }
+      .bom { grid-template-columns: 1fr; }
+      .steps { padding-left: 48px; }
+      .steps li::before { left: -48px; width: 36px; }
+      .links-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- ── Topbar ─────────────────────────────────── -->
+    <header class="topbar">
+      <a class="brand" href="https://dragutinoreski.com/">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span>
+          <span class="brand-name">Dragutin Oreški</span>
+          <span class="brand-meta">Pokedex · Side project</span>
+        </span>
+      </a>
+      <nav class="topbar-nav">
+        <a href="https://dragutinoreski.com/">← Početna</a>
+      </nav>
+    </header>
+
+    <!-- ── Hero ───────────────────────────────────── -->
+    <section>
+      <div class="kicker"><span class="dot"></span>Hardware · Computer vision</div>
+      <h1>A pocket <em>pokedex</em>, but for the real world.</h1>
+      <p class="hero-sub">
+        A handheld device that recognises objects through a camera, names them out loud, and keeps a browseable history of everything it has ever seen.
+      </p>
+
+      <dl class="hero-meta">
+        <div><dt>Brain</dt><dd>Raspberry Pi 4</dd></div>
+        <div><dt>Eyes</dt><dd>8MP Pi camera</dd></div>
+        <div><dt>Screen</dt><dd>2.4″ LCD</dd></div>
+        <div><dt>Voice</dt><dd>Speaker + amp</dd></div>
+        <div><dt>Shell</dt><dd>3D-printed</dd></div>
+      </dl>
+
+      <figure class="device-figure">
+        <div class="device-figure-content">
+          <span class="tag">device photo</span>
+          <div class="label">Drop in <code style="font-family:var(--mono); font-size:14px;">res/dex.jpg</code></div>
+        </div>
+      </figure>
+    </section>
+
+    <!-- ── Body prose ─────────────────────────────── -->
+    <section class="prose">
+      <p>
+        The goal was simple: build a thing that <em>looks like a Pokedex</em> and actually works like one. Point it at something, press a button, and it tells you what it is. Battery-powered, carryable, no laptop in the loop.
+      </p>
+      <p>
+        It only fires the classifier on demand — when the trigger button is pressed — so it doesn't spam itself with every frame. New detections are saved to a local "seen" list you can scroll through later with the side buttons. There's also a small joke baked in: when it sees a dog, it specifically calls it "<em>bobi</em>".
+      </p>
+    </section>
+
+    <!-- ── How it works ───────────────────────────── -->
+    <section class="section">
+      <div class="section-head">
+        <h2>How it works</h2>
+        <span class="section-label">flow</span>
+      </div>
+      <ol class="steps">
+        <li>
+          <h4>Idle on a background image</h4>
+          <p>Device boots into a low-power background screen, waiting for input from one of the four GPIO buttons.</p>
+        </li>
+        <li>
+          <h4>Trigger a capture</h4>
+          <p>Press the main button. The Pi camera grabs a frame and runs it through an OpenCV DNN object detector with a 0.6 confidence threshold.</p>
+        </li>
+        <li>
+          <h4>Show & speak each new class</h4>
+          <p>For every class it has never seen, the LCD shows a matching dex image and the speaker reads the name out loud via text-to-speech.</p>
+        </li>
+        <li>
+          <h4>Browse the history</h4>
+          <p>A second button lets you flip back through everything the device has ever recognised — like the original handheld's "seen" list.</p>
+        </li>
+        <li>
+          <h4>Reset the dex</h4>
+          <p>A third button wipes the history. Good for handing it to someone fresh.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ── Bill of materials ──────────────────────── -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Bill of materials</h2>
+        <span class="section-label">hardware</span>
+      </div>
+      <div class="bom">
+        <div class="bom-row">
+          <div class="bom-num">01</div>
+          <div>
+            <div class="bom-name"><a href="https://www.hgspot.hr/elektronicki-set-raspberry-pi-4-model-b-8gb-original-starter-kit-8gb-komplet">Raspberry Pi 4 Model B</a></div>
+            <div class="bom-meta">4GB · the brain</div>
+          </div>
+        </div>
+        <div class="bom-row">
+          <div class="bom-num">02</div>
+          <div>
+            <div class="bom-name"><a href="https://www.tme.eu/hr/en/details/rpi-camera-v2/accessories-for-embedded-systems/raspberry-pi/raspberry-pi-camera-8mp-v2/">Pi Camera V2</a></div>
+            <div class="bom-meta">8MP · the eyes</div>
+          </div>
+        </div>
+        <div class="bom-row">
+          <div class="bom-num">03</div>
+          <div>
+            <div class="bom-name"><a href="https://www.amazon.de/-/en/Coolwell-Waveshare-General-Resolution-Embedded/dp/B08JCFC69B">Waveshare LCD</a></div>
+            <div class="bom-meta">2.4″ · the dex screen</div>
+          </div>
+        </div>
+        <div class="bom-row">
+          <div class="bom-num">04</div>
+          <div>
+            <div class="bom-name"><a href="http://www.elmatis.hr/ProductDetails.aspx?productId=52232">Speaker</a></div>
+            <div class="bom-meta">small mono · the voice</div>
+          </div>
+        </div>
+        <div class="bom-row">
+          <div class="bom-num">05</div>
+          <div>
+            <div class="bom-name"><a href="https://hr.mouser.com/ProductDetail/Adafruit/3006">Adafruit amplifier</a></div>
+            <div class="bom-meta">drives the speaker</div>
+          </div>
+        </div>
+        <div class="bom-row">
+          <div class="bom-num">06</div>
+          <div>
+            <div class="bom-name">3D-printed shell</div>
+            <div class="bom-meta">.stl files in repo · paint red</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Software notes ─────────────────────────── -->
+    <section class="section prose">
+      <div class="section-head">
+        <h2>Software notes</h2>
+        <span class="section-label">setup</span>
+      </div>
+      <p>
+        The repo only ships the Python that runs <em>on</em> the device — not the OS layer. For the OS, the easiest path is one of the prebuilt images from <a href="https://github.com/Qengineering">Q-engineering</a>: either an <a href="https://github.com/Qengineering/Install-OpenCV-Raspberry-Pi-64-bits">image with OpenCV preinstalled</a> or their <a href="https://github.com/Qengineering/Paddle-Raspberry-Pi">prebuilt wheels</a>.
+      </p>
+      <p>
+        Things I'd change next time: print the case in red filament directly so it doesn't need painting, and widen the cylinders on the front grill so they don't clog with paint.
+      </p>
+    </section>
+
+    <!-- ── Links ──────────────────────────────────── -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Links & credits</h2>
+        <span class="section-label">go deeper</span>
+      </div>
+      <div class="links-grid">
+        <a class="link-card" href="https://github.com/dragutin-oreski/pokedex">
+          <span class="arrow">↗</span>
+          <div class="label">Source · GitHub</div>
+          <div class="name">dragutin-oreski/pokedex</div>
+        </a>
+        <a class="link-card" href="https://www.youtube.com/watch?v=fbpM0oHZSb4">
+          <span class="arrow">↗</span>
+          <div class="label">Inspiration · Sam Makes</div>
+          <div class="name">The build that started it</div>
+        </a>
+        <a class="link-card" href="https://www.youtube.com/@sammakes3512">
+          <span class="arrow">↗</span>
+          <div class="label">Channel · Sam Makes</div>
+          <div class="name">More handheld builds</div>
+        </a>
+        <a class="link-card" href="https://www.linkedin.com/in/ivankunovic/">
+          <span class="arrow">↗</span>
+          <div class="label">Co-conspirator</div>
+          <div class="name">Ivan Kunović</div>
+        </a>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <span>Pokedex · 2024</span>
+      <span><a href="https://dragutinoreski.com/">Početna</a></span>
+    </footer>
+
+  </div>
+</body>
+</html>
