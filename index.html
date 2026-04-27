@@ -138,18 +138,19 @@
       font-weight: 500; letter-spacing: 0; text-transform: none;
     }
 
-    /* ── Imagery placeholder ───────────────────────── */
+    /* ── Device image ──────────────────────────────── */
     .device-figure {
       margin: 0 0 64px;
       background:
-        repeating-linear-gradient(135deg,
-          color-mix(in oklch, var(--accent) 12%, var(--card)) 0 8px,
-          var(--card) 8px 16px);
+        radial-gradient(circle at 50% 42%, rgba(192, 42, 54, 0.13), transparent 38%),
+        linear-gradient(135deg, var(--card), color-mix(in oklch, var(--paper) 86%, var(--accent)));
       border: 1px solid var(--rule);
       border-radius: 12px;
-      aspect-ratio: 16 / 9;
-      display: grid; place-items: center;
-      color: var(--ink-2);
+      min-height: clamp(360px, 58vw, 680px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(20px, 5vw, 48px);
       position: relative;
       overflow: hidden;
     }
@@ -159,27 +160,14 @@
       background: radial-gradient(ellipse at center, transparent 30%, var(--paper) 110%);
       pointer-events: none;
     }
-    .device-figure-content {
+    .device-figure img {
       position: relative; z-index: 1;
-      text-align: center;
-    }
-    .device-figure-content .tag {
-      display: inline-block;
-      padding: 4px 10px;
-      border: 1px solid var(--rule);
-      background: var(--paper);
-      border-radius: 100px;
-      font-family: var(--mono);
-      font-size: 10.5px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .device-figure-content .label {
-      font-family: var(--serif);
-      font-size: 22px; font-style: italic;
-      color: var(--ink);
+      display: block;
+      width: min(100%, 440px);
+      height: auto;
+      max-height: 620px;
+      object-fit: contain;
+      filter: drop-shadow(0 24px 42px rgba(38, 22, 21, 0.18));
     }
 
     /* ── Body prose ────────────────────────────────── */
@@ -399,10 +387,7 @@
       </dl>
 
       <figure class="device-figure">
-        <div class="device-figure-content">
-          <span class="tag">device photo</span>
-          <div class="label">Drop in <code style="font-family:var(--mono); font-size:14px;">res/dex.jpg</code></div>
-        </div>
+        <img src="res/dex.jpg" alt="Hand-built Pokedex device with screen, buttons, and camera lens">
       </figure>
     </section>
 
